@@ -109,6 +109,10 @@ module.exports = {
                                         return false;
                                     }
 
+                                    if (/\.css$/.test(value)) {
+                                        return false;
+                                    }
+
                                     return true;
                                 },
                             }
