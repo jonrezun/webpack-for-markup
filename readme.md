@@ -24,7 +24,7 @@ npm run build
 
 ## File stucture
 
-- **congig** - webpack configs files
+- **configs** - webpack configs files
 
   - **common.js** - common commands
   - **dev.js** - commands for development
@@ -53,7 +53,7 @@ npm run build
     - **plugins/** - custom styles for plugins
     - **reset/** - reset.scss
     - **static/** - staic styles (variables, typography and etc)
-    - **template/** - loyout styles
+    - **template/** - layout styles
     - **grid/** - SmartGrid mixins for grid CSS
     - **main.scss** - import scss
 
