@@ -1,5 +1,4 @@
-const isProd = process.env.NODE_ENV === 'production';
-
+const { merge } = require('webpack-merge')
 const path = require('path')
 const paths = require('./paths')
 const fs = require('fs');
@@ -11,6 +10,7 @@ const Dotenv = require('dotenv-webpack')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
+const vueconfig = require("./vue.js");
 
 //setting for html plugin
 function generateHtmlPlugins(templateDir) {
@@ -24,103 +24,109 @@ function generateHtmlPlugins(templateDir) {
             hash: true,
             template: path.resolve(__dirname, `${templateDir}/${name}.${extension}`),
             inject: false,
-            isProduction: isProd,
         })
     })
 }
-const htmlPlugins = generateHtmlPlugins('../src/html/pages');
+const htmlPlugins = generateHtmlPlugins(`${paths.src}/html/pages`);
 
-module.exports = {
-    entry: {
-        main: [
-            `${paths.src}/js/index.js`,
-            `${paths.src}/styles/main.scss`,
-        ],
-    },
-    output: {
-        path: paths.build,
-        filename: 'js/[name].bundle.js',
-        // assetModuleFilename: 'images/[name][ext]'
-    },
-    plugins: [
-        new CleanWebpackPlugin(),
-        new MiniCssExtractPlugin({
-            filename: "styles/[name].css",
-        }),
-        new CopyPlugin({
-            patterns: [
-                { context: "src/static", from: "*", to: "./", force: true },
+module.exports= (env, argv) => merge(vueconfig(env, argv), {
+        entry: {
+            main: [
+                `${paths.src}/js/index.js`,
+                `${paths.src}/styles/main.scss`,
             ],
-        }),
-        new Dotenv({
-            path: './config/.env'
-        })
-    ]
-        .concat(htmlPlugins), // templates and layouts,
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: ['babel-loader'],
-            },
-            {
-                test: /\.(scss|css)$/,
-                use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {
-                        }
-                    },
-                    {
-                        loader: "css-loader",
-                        options: {
-                            sourceMap: isProd,
-                        }
-                    },
-                    {
-                        loader: 'postcss-loader',
-                        options: { sourceMap: isProd, }
-                    },
-                    {
-                        loader: "sass-loader",
-                        options: {
-                            sourceMap: isProd
-                        }
-                    },
-                ]
-            },
-            {
-                test: /\.(jpg|png|svg)$/,
-                type: 'asset/resource',
-                generator: {
-                    filename: 'images/[hash][ext]',
-                },
-            },
-            {
-                test: /\.pug$/,
-                use: [
-                    {
-                        loader: "html-loader", options: {
-                            minimize: false,
-                            sources: {
-                                urlFilter: (attribute, value, resourcePath) => {
-                                    if (/\.js$/.test(value)) {
-                                        return false;
-                                    }
-
-                                    if (/\.css$/.test(value)) {
-                                        return false;
-                                    }
-
-                                    return true;
-                                },
-                            }
-                        }
-                    },
-                    { loader: "pug-html-loader", options: { pretty: true } }
-                ]
-            },
+            vue: [
+                `${paths.src}/vue/project/index.js`,
+            ]
+        },
+        output: {
+            path: paths.build,
+            filename: 'js/[name].bundle.js',
+            // assetModuleFilename: 'images/[name][ext]'
+        },
+        resolve: {
+            extensions: ['.js', '.vue']
+        },
+        plugins: [
+            new CleanWebpackPlugin(),
+            new MiniCssExtractPlugin({
+                filename: "styles/[name].css",
+            }),
+            new CopyPlugin({
+                patterns: [
+                    { context: "src/static", from: "*", to: "./", force: true },
+                ],
+            }),
+            new Dotenv({
+                path: './config/.env'
+            })
         ]
-    }
-}
+            .concat(htmlPlugins), // templates and layouts,
+        module: {
+            rules: [
+                {
+                    test: /\.js$/,
+                    include: `${paths.src}/js`,
+                    exclude: /node_modules/,
+                    use: ['babel-loader'],
+                },
+                {
+                    test: /\.(scss|css)$/,
+                    use: [
+                        {
+                            loader: MiniCssExtractPlugin.loader,
+                            options: {
+                            }
+                        },
+                        {
+                            loader: "css-loader",
+                            options: {
+                                sourceMap: argv.mode == "development",
+                            }
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: { sourceMap: argv.mode == "development"}
+                        },
+                        {
+                            loader: "sass-loader",
+                            options: {
+                                sourceMap: argv.mode == "development"
+                            }
+                        },
+                    ]
+                },
+                {
+                    test: /\.(jpg|jpeg|png|svg)$/,
+                    type: 'asset/resource',
+                    generator: {
+                        filename: 'images/[hash][ext]',
+                    },
+                },
+                {
+                    test: /\.pug$/,
+                    use: [
+                        {
+                            loader: "html-loader", options: {
+                                minimize: false,
+                                sources: {
+                                    urlFilter: (attribute, value, resourcePath) => {
+                                        if (/\.js$/.test(value)) {
+                                            return false;
+                                        }
+    
+                                        if (/\.css$/.test(value)) {
+                                            return false;
+                                        }
+    
+                                        return true;
+                                    },
+                                }
+                            }
+                        },
+                        { loader: "pug-html-loader", options: { pretty: true } }
+                    ]
+                },
+            ]
+        }
+})

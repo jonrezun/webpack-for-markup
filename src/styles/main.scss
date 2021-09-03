@@ -1,7 +1,8 @@
-$font-size: 32px;
-$font-color: lch(53 105 40);
+@import "./reset/reset.scss";
 
-h1 {
-    font-size: $font-size;
-    color: $font-color;
-}
+@import "./static/variables.scss";
+@import "./static/typography.scss";
+@import "./grid/mixins.scss";
+@import "./grid/smart-grid.scss";
+
+@import "./template/layout.scss";

@@ -3,9 +3,9 @@ const { merge } = require('webpack-merge')
 
 const common = require('./common')
 
-module.exports = merge(common, {
+module.exports = (env, argv) => merge(common(env, argv), {
     mode: 'development',
-    devtool: 'eval-cheap-source-map',
+    devtool: 'source-map',
     devServer: {
         compress: true,
         historyApiFallback: true,

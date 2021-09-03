@@ -1,0 +1,21 @@
+header
+    div.container
+        -
+            var nav = [
+                {
+                    name: "Main",
+                    url: "/"
+                },
+                {
+                    name: "About",
+                    url: "/about.html"
+                },
+                {
+                    name: "With Vue",
+                    url: "/reactive.html"
+                }
+            ]
+        nav
+            each navItem in nav
+                li
+                    a(href=navItem.url)= navItem.name

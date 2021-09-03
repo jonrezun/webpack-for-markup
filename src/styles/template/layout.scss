@@ -1,0 +1,52 @@
+* {
+  box-sizing: border-box;
+  &::after,
+  &::before {
+    box-sizing: border-box;
+  }
+}
+
+html,
+body {
+  height: 100%;
+  font-size: $base-font-size + px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  font-family: $fonts;
+  font-size: $base-font-size + px;
+  line-height: 18px;
+  color: $font-color;
+  font-variant-ligatures: no-common-ligatures;
+  &.fixed-body {
+    overflow-y: hidden;
+    height: 100%;
+  }
+}
+
+main {
+  flex: 1;
+  -ms-flex: auto;
+  position: relative;
+  margin-top: rem(16);
+}
+
+.container {
+  @include wrapper();
+}
+
+.container-fluid {
+  @include wrapper-full();
+}
+
+.row {
+  @include row-flex();
+}
+
+.col {
+  @include col();
+}

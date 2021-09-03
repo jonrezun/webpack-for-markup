@@ -1,0 +1,38 @@
+//mixins
+@mixin hover() {
+  &:hover {
+    @media screen and (min-width: 1024px) {
+      @content;
+    }
+  }
+}
+
+@mixin no-scrollbar() {
+  -ms-overflow-style: none; // IE and Edge
+  scrollbar-width: none; // Firefox
+
+  &::-webkit-scrollbar {
+    display: none; // Chrome, Safari and Opera
+  }
+}
+
+@mixin ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+@function rem($pixels, $context: $base-font-size) {
+  @return ($pixels / $context) * 1rem;
+}
+
+//fonts
+@mixin font($font, $line-height) {
+  font-size: rem($font);
+  line-height: rem($line-height);
+}
+
+//gradients
+@mixin gradient($direction, $colors) {
+  background: linear-gradient($direction, $colors);
+}

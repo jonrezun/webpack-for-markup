@@ -1,0 +1,10 @@
+extends ../layouts/default
+
+block content
+    div.container
+        h1.title-h1 Reactive
+        #vue-element
+        script.
+            window.CW = {}
+            window.CW.vueProjectEl = document.getElementById('vue-element');
+        script(src='/js/vue.bundle.js')
