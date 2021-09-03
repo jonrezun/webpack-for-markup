@@ -24,37 +24,37 @@ npm run build
 
 ## File stucture
 
-- congig #webpack configs file
+- **congig** - webpack configs file
 
-  - common.js #common commands
-  - dev.js #commands for development
-  - prod.js #commands for development
-  - vue.js #commands for vue files
-  - paths.js #basic paths
+  - **common.js** - common commands
+  - **dev.js** - commands for development
+  - **prod.js** - commands for development
+  - **vue.js** - commands for vue files
+  - **paths.js** - basic paths
 
-- src # main files
+- **src** - main files
 
-  - html/ # html - pug files: pages layout, partials
+  - **html/** - html - pug files: pages layout, partials
 
-  - layouts/ # layout: head, header, footer
-  - components/ # pug components
-  - pages/ # pages. For creating new pages just create new file. Page URL = fileName.html
+  - **layouts/** - layout: head, header, footer
+  - **components/** - pug components
+  - **pages/** - pages. For creating new pages just create new file. Page URL = fileName.html
 
-  - images/ # all images
+  - **images/** - all images
 
-  - js/ # js files
+  - **js/** - js files
 
-    - libs/ # js libraries, which unable to connect using NPM
-    - index.js # entry file
+    - **libs/** - js libraries, which unable to connect using NPM
+    - **index.js** - entry file
 
-  - styles/ # scss files
+  - **styles/** - scss files
 
-    - components/ # styles fro components
-    - plugins/ # custom styles for plugins
-    - reset/ # reset.scss
-    - static/ # staic styles (variables, typography and etc)
-    - template/ # loyout styles
-    - grid/ # SmartGrid mixins for grid CSS
-    - main.scss # import scss
+    - **components/** - styles fro components
+    - **plugins/** - custom styles for plugins
+    - **reset/** - reset.scss
+    - **static/** - staic styles (variables, typography and etc)
+    - **template/** - loyout styles
+    - **grid/** - SmartGrid mixins for grid CSS
+    - **main.scss** - import scss
 
-  - vue # folder for vue projects
+  - **vue** - folder for vue projects
