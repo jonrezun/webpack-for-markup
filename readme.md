@@ -24,7 +24,7 @@ npm run build
 
 ## File stucture
 
-- **congig** - webpack configs file
+- **congig** - webpack configs files
 
   - **common.js** - common commands
   - **dev.js** - commands for development
