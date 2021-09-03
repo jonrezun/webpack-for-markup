@@ -36,9 +36,9 @@ npm run build
 
   - **html/** - html - pug files: pages layout, partials
 
-  - **layouts/** - layout: head, header, footer
-  - **components/** - pug components
-  - **pages/** - pages. For creating new pages just create new file. Page URL = fileName.html
+    - **layouts/** - layout: head, header, footer
+    - **components/** - pug components
+    - **pages/** - pages. For creating new pages just create new file. Page URL = fileName.html
 
   - **images/** - all images
 
