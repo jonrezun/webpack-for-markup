@@ -1,4 +1,4 @@
-# Cool webpack boilerplate fro markup + VUE
+# Cool webpack boilerplate for markup + VUE
 
 - :white_check_mark: PUG
 - :white_check_mark: Generating dynamic paths for images
